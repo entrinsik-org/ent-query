@@ -944,6 +944,22 @@ describe('QueryResult', function () {
                 qr.fields.should.deep.equal({ foo: { dataType: 'geo_point' } });
             });
 
+            it('should set the field metadata', function() {
+                var field = shim.field('foo');
+                field.metadata('pg', { schema: 1234, table: 5567, column: 4323423 });
+                qr.fields.should.deep.equal({
+                    foo: {
+                        metadata: {
+                            pg: {
+                                schema: 1234,
+                                table: 5567,
+                                column: 4323423
+                            }
+                        }
+                    }
+                });
+            });
+
             it('should support chaining', function () {
                 shim.field('foo')
                     .label('FooBar')
